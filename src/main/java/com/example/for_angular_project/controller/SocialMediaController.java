@@ -15,39 +15,31 @@ import com.example.for_angular_project.Entity.SocialMedia;
 import com.example.for_angular_project.Service.SocialMediaService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 
 public class SocialMediaController {
    @Autowired
    SocialMediaService socialMediaService;
 
    @PostMapping("/postSocialMedia")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String postCopyRight(@RequestBody SocialMedia socialMedia) {
       socialMediaService.postCopyRight(socialMedia);
       return "Data submitted successfully";
    }
 
    @GetMapping("/getSocialMedia")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public List<SocialMedia> getSocialMedia() {
       return socialMediaService.getSocialMedia();
 
    }
 
    @GetMapping("/getSocialMedia/{socialMediaId}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public SocialMedia getSocialMedia(@PathVariable("socialMediaId") Integer socialMediaId) {
       return socialMediaService.getSocialMedia(socialMediaId);
 
    }
 
    @PutMapping("/updateSocialMedia/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String updateCopyRight(@PathVariable("id") Integer id, @RequestBody SocialMedia socialMedia) {
       socialMediaService.updateCopyRight(id, socialMedia);
       return "Data Updated successfully";

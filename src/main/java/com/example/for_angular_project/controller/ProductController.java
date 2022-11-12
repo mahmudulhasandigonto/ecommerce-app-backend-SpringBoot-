@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.for_angular_project.Entity.Product;
 import com.example.for_angular_project.Service.ProductService;
+import com.example.for_angular_project.error.ProductNotFoundException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 
 public class ProductController {
 
@@ -24,7 +25,6 @@ public class ProductController {
    ProductService productService;
 
    @PostMapping("/postProduct")
-   @CrossOrigin(origins = "http://localhost:4200")
 
    public String postProduct(@RequestBody Product product) {
       productService.postProduct(product);
@@ -32,28 +32,29 @@ public class ProductController {
    }
 
    @GetMapping("/getProduct")
-   @CrossOrigin(origins = "http://localhost:4200")
 
    public List<Product> getProduct() {
       return productService.getProduct();
    }
 
-   @GetMapping("/getProduct/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
+   @GetMapping("/getProductByName/{name}")
+   public List<Product> getProductByNameStartWith(@PathVariable String name) {
+      return productService.getProductByNameStartWith(name);
+   }
 
-   public Product getProductById(@PathVariable Integer id) {
+   @GetMapping("/getProduct/{id}")
+
+   public Product getProductById(@PathVariable Integer id) throws ProductNotFoundException {
       return productService.getProductById(id);
    }
 
    @GetMapping("/getProductByBrandId/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
 
    public Product getProductByBrandId(@PathVariable Integer id) {
       return productService.getProductByBrandId(id);
    }
 
    @PutMapping("/updateProduct/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
 
    public String updateProduct(@PathVariable Integer id,
          @RequestBody() Product product) {
@@ -62,7 +63,6 @@ public class ProductController {
    }
 
    @DeleteMapping("/deleteProduct/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
 
    public String deleteProduct(@PathVariable Integer id) {
       productService.deleteProduct(id);

@@ -2,12 +2,14 @@ package com.example.for_angular_project.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.for_angular_project.Entity.CustomerRegistration;
 import com.example.for_angular_project.Repository.CustomerRegistrationRepository;
+import com.example.for_angular_project.error.CustomerRegistrationNotFoundException;
 
 @Service
 public class CustomerRegistrationServiceImp implements CustomerRegistrationService {
@@ -26,8 +28,14 @@ public class CustomerRegistrationServiceImp implements CustomerRegistrationServi
    }
 
    @Override
-   public CustomerRegistration getCustomerRegistration(Integer id) {
-      return customerRegistrationRepository.findById(id).get();
+   public CustomerRegistration getCustomerRegistration(Integer id) throws CustomerRegistrationNotFoundException {
+      Optional<CustomerRegistration> customerRegistration = customerRegistrationRepository.findById(id);
+
+      if (!customerRegistration.isPresent()) {
+         throw new CustomerRegistrationNotFoundException("Customer not found");
+      }
+
+      return customerRegistration.get();
    }
 
    @Override

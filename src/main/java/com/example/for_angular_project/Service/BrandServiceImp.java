@@ -2,12 +2,14 @@ package com.example.for_angular_project.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.for_angular_project.Entity.Brand;
 import com.example.for_angular_project.Repository.BrandRepository;
+import com.example.for_angular_project.error.BrandNotFoundException;
 
 @Service
 public class BrandServiceImp implements BrandService {
@@ -20,8 +22,14 @@ public class BrandServiceImp implements BrandService {
    }
 
    @Override
-   public Brand getBrandById(Integer id) {
-      return brandRepository.findById(id).get();
+   public Brand getBrandById(Integer id) throws BrandNotFoundException {
+      Optional<Brand> brand = brandRepository.findById(id);
+
+      if (!brand.isPresent()) {
+         throw new BrandNotFoundException("Brand not found");
+      }
+
+      return brand.get();
 
    }
 

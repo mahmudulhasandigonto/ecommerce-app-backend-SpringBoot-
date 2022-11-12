@@ -14,17 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.for_angular_project.Entity.Admin;
 import com.example.for_angular_project.Service.AdminSerive;
+import com.example.for_angular_project.error.AdminNotFoundException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class AdminController {
 
    @Autowired
    AdminSerive adminSerive;
 
    @PostMapping("/postAdmin")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String postAdmin(@RequestBody Admin admin) {
       adminSerive.postAdmin(admin);
       return "Data Submited Successfully";
@@ -32,29 +31,22 @@ public class AdminController {
    }
 
    @GetMapping("/getAdmin/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
-   public Admin getAdminById(@PathVariable("id") Integer id) {
+   public Admin getAdminById(@PathVariable("id") Integer id) throws AdminNotFoundException {
       return adminSerive.getAdminById(id);
    }
 
    @GetMapping(value = "/getAdmin")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public List<Admin> getMethodName() {
       return adminSerive.getAdminList();
    }
 
    @DeleteMapping(value = "/deleteAdmin/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String deleteAdminById(@PathVariable Integer id) {
       adminSerive.deleteAdminById(id);
       return "Data Deleted Successfully";
    }
 
    @PutMapping("/updateAdmin/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
 
    public String updateAdminById(@PathVariable Integer id, @RequestBody Admin admin) {
       adminSerive.updateAdminById(id, admin);

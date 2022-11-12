@@ -14,46 +14,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.for_angular_project.Entity.Brand;
 import com.example.for_angular_project.Service.BrandService;
+import com.example.for_angular_project.error.BrandNotFoundException;
 
 @RestController
-   @CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 
 public class BrandController {
    @Autowired
    BrandService brandService;
 
    @GetMapping("/getBrand")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public List<Brand> getBrandList() {
       return brandService.getBrandList();
    }
 
    @PostMapping("/postBrand")
-   @CrossOrigin(origins = "http://localhost:4200")
    public String saveBrand(@RequestBody Brand brand) {
       brandService.saveBrand(brand);
       return "Data Submited Successfully";
    }
 
    @GetMapping("/getBrandById/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
-   public Brand getBrandById(@PathVariable Integer id) {
+   public Brand getBrandById(@PathVariable Integer id) throws BrandNotFoundException {
       return brandService.getBrandById(id);
    }
 
    @DeleteMapping("/deleteBrand/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String deleteBrandById(@PathVariable Integer id) {
       brandService.deleteBrandById(id);
       return "Data Deleted Successfully";
    }
 
    @PutMapping("/updateBrand/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String updateBrandById(@PathVariable Integer id, @RequestBody Brand brand) {
       brandService.updateBrandById(id, brand);
       return "Data Update Successfully";

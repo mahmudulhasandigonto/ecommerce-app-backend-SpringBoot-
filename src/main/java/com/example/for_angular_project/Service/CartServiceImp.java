@@ -2,12 +2,14 @@ package com.example.for_angular_project.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.for_angular_project.Entity.Cart;
 import com.example.for_angular_project.Repository.CartRepository;
+import com.example.for_angular_project.error.CartNotFoundException;
 
 @Service
 public class CartServiceImp implements CartService {
@@ -21,8 +23,13 @@ public class CartServiceImp implements CartService {
    }
 
    @Override
-   public Cart getCartById(Integer id) {
-      return cartRepository.findById(id).get();
+   public Cart getCartById(Integer id) throws CartNotFoundException {
+      Optional<Cart> cart = cartRepository.findById(id);
+      if (!cart.isPresent()) {
+         throw new CartNotFoundException("Cart not found");
+      }
+
+      return cart.get();
    }
 
    @Override
@@ -47,7 +54,7 @@ public class CartServiceImp implements CartService {
       cartDemo.setProductPrice(cart.getProductPrice());
       cartDemo.setQuantity(cart.getQuantity());
       cartDemo.setImageUrl(cart.getImageUrl());
-      
+
       cartRepository.save(cartDemo);
    }
 

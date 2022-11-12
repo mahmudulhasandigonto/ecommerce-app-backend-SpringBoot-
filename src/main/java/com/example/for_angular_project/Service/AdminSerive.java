@@ -3,6 +3,7 @@ package com.example.for_angular_project.Service;
 import java.util.List;
 
 import com.example.for_angular_project.Entity.Admin;
+import com.example.for_angular_project.error.AdminNotFoundException;
 
 public interface AdminSerive {
 
@@ -14,6 +15,6 @@ public interface AdminSerive {
 
    public void updateAdminById(Integer id, Admin admin);
 
-   public Admin getAdminById(Integer id);
+   public Admin getAdminById(Integer id) throws AdminNotFoundException;
 
 }

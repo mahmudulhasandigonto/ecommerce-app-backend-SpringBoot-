@@ -16,41 +16,36 @@ import com.example.for_angular_project.Entity.Customer;
 import com.example.for_angular_project.Service.CustomerService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class CustomerController {
 
    @Autowired
    CustomerService customerService;
 
    @PostMapping("/postCustomer")
-   @CrossOrigin(origins = "http://localhost:4200")
    public String postCustomer(@RequestBody Customer customer) {
       customerService.postCustomer(customer);
       return "Data submitted successfully";
    }
 
    @GetMapping("/getCustomer")
-   @CrossOrigin(origins = "http://localhost:4200")
    public List<Customer> getCustomer() {
 
       return customerService.getCustomer();
    }
 
    @GetMapping("/getCustomer/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
    public Customer getCustomer(@PathVariable("id") Integer id) {
       return customerService.getCustomerById(id);
    }
 
    @DeleteMapping("/deleteCustomer/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
    public String deleteCustomer(@PathVariable("id") Integer id) {
       customerService.deleteCustomerById(id);
       return "Data deleted Successfully";
    }
 
    @PutMapping("updateCustomer/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
    public String updateCustomer(@PathVariable("id") Integer id, @RequestBody Customer customer) {
       customerService.updateCustomer(id, customer);
       return "Data updated Successfully";

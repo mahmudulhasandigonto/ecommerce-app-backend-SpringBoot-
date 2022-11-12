@@ -14,39 +14,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.for_angular_project.Entity.CustomerRegistration;
 import com.example.for_angular_project.Service.CustomerRegistrationService;
+import com.example.for_angular_project.error.CustomerRegistrationNotFoundException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 
 public class CustomerRegistrationController {
    @Autowired
    CustomerRegistrationService customerRegistrationService;
 
    @PostMapping("/postCustomerRegistration")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String postCustomerRegistration(@RequestBody CustomerRegistration customerRegistration) {
       customerRegistrationService.postCustomerRegistration(customerRegistration);
       return "Data Submited Successfully";
    }
 
    @GetMapping("/getCustomerRegistration")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public List<CustomerRegistration> getCustomerRegistration() {
       return customerRegistrationService.getCustomerRegistration();
    }
 
    @GetMapping("/getCustomerRegistrationById/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
-   public CustomerRegistration getCustomerRegistrationById(@PathVariable Integer id) {
+   public CustomerRegistration getCustomerRegistrationById(@PathVariable Integer id)
+         throws CustomerRegistrationNotFoundException {
       return customerRegistrationService.getCustomerRegistration(id);
    }
 
    @PutMapping("/updateCustomerRegistration/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String updateCustomerRegistration(@PathVariable Integer id,
          @RequestBody() CustomerRegistration customerRegistration) {
       customerRegistrationService.updateCustomerRegistration(id, customerRegistration);
@@ -54,8 +48,6 @@ public class CustomerRegistrationController {
    }
 
    @DeleteMapping("/deleteCustomerRegistration/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String deleteCustomerRegistration(@PathVariable Integer id) {
       customerRegistrationService.deleteCustomerRegistration(id);
       return "Data Delete Successfully";

@@ -2,12 +2,14 @@ package com.example.for_angular_project.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.for_angular_project.Entity.Admin;
 import com.example.for_angular_project.Repository.AdminRepository;
+import com.example.for_angular_project.error.AdminNotFoundException;
 
 @Service
 public class AdminServiceImp implements AdminSerive {
@@ -49,8 +51,14 @@ public class AdminServiceImp implements AdminSerive {
    }
 
    @Override
-   public Admin getAdminById(Integer id) {
-      return adminRepository.findById(id).get();
+   public Admin getAdminById(Integer id) throws AdminNotFoundException {
+      Optional<Admin> admin = adminRepository.findById(id);
+
+      if (!admin.isPresent()) {
+         throw new AdminNotFoundException("Admin not found");
+      }
+
+      return admin.get();
    }
 
    @Override

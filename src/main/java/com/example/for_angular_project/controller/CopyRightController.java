@@ -15,7 +15,7 @@ import com.example.for_angular_project.Entity.CopyRight;
 import com.example.for_angular_project.Service.CopyRightService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 
 public class CopyRightController {
 
@@ -23,30 +23,22 @@ public class CopyRightController {
    CopyRightService copyRightService;
 
    @PostMapping("/postCopyRight")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String postCopyRight(@RequestBody CopyRight copyRight) {
       copyRightService.postCopyRight(copyRight);
       return "Data submitted successfully";
    }
 
    @GetMapping("/getCopyRight")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public List<CopyRight> getCopyRight() {
       return copyRightService.getCopyRights();
    }
 
    @GetMapping("/getCopyRight/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public CopyRight getCopyRight(@PathVariable("id") Integer id) {
       return copyRightService.getCopyRight(id);
    }
 
    @PutMapping("/updateCopyRight/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String updateCopyRight(@PathVariable("id") Integer id, @RequestBody CopyRight copyRight) {
       copyRightService.updateCopyRight(id, copyRight);
       return "Data Updated successfully";

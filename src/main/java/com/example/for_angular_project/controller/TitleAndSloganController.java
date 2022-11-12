@@ -15,7 +15,7 @@ import com.example.for_angular_project.Entity.TitleAndSlogan;
 import com.example.for_angular_project.Service.TitleAndSloganService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 
 public class TitleAndSloganController {
 
@@ -23,28 +23,22 @@ public class TitleAndSloganController {
    TitleAndSloganService titleAndSloganService;
 
    @PostMapping("/postTitleAndSlogan")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String postCopyRight(@RequestBody TitleAndSlogan titleAndSlogan) {
       titleAndSloganService.postCopyRight(titleAndSlogan);
       return "Data submitted successfully";
    }
 
    @GetMapping("/getTitleAndSlogan/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
    public TitleAndSlogan getTitleAndSlogan(@PathVariable("id") Integer titleAndSloganId) {
       return titleAndSloganService.getTitleAndSlogan(titleAndSloganId);
    }
 
    @GetMapping("/getTitleAndSlogan")
-   @CrossOrigin(origins = "http://localhost:4200")
    public List<TitleAndSlogan> getTitleAndSlogans() {
       return titleAndSloganService.getTitleAndSlogans();
    }
 
    @PutMapping("/updateTitleAndSlogan/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String updateCopyRight(@PathVariable("id") Integer id, @RequestBody TitleAndSlogan titleAndSlogan) {
       titleAndSloganService.updateCopyRight(id, titleAndSlogan);
       return "Data Updated successfully";

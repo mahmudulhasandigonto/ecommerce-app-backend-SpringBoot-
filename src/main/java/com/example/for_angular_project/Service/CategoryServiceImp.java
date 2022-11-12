@@ -2,12 +2,14 @@ package com.example.for_angular_project.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.for_angular_project.Entity.Category;
 import com.example.for_angular_project.Repository.CategoryRepository;
+import com.example.for_angular_project.error.CategoryNotFoundException;
 
 @Service
 public class CategoryServiceImp implements CategoryService {
@@ -20,8 +22,14 @@ public class CategoryServiceImp implements CategoryService {
    }
 
    @Override
-   public Category getCategoryById(Integer id) {
-      return categoryRepository.findById(id).get();
+   public Category getCategoryById(Integer id) throws CategoryNotFoundException {
+      Optional<Category> category = categoryRepository.findById(id);
+
+      if (!category.isPresent()) {
+         throw new CategoryNotFoundException("Category not found");
+      }
+
+      return category.get();
    }
 
    @Override

@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.for_angular_project.Entity.Cart;
 import com.example.for_angular_project.Service.CartService;
+import com.example.for_angular_project.error.CartNotFoundException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 
 public class CartController {
 
@@ -24,38 +25,28 @@ public class CartController {
    CartService cartService;
 
    @PostMapping("/postCart")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String postCart(@RequestBody Cart cart) {
       cartService.postCart(cart);
       return "Data Submited Successfully";
    }
 
    @GetMapping("/getCart")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public List<Cart> getCartList() {
       return cartService.getCartList();
    }
 
    @GetMapping("/getCartById/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
-   public Cart getCartById(@PathVariable Integer id) {
+   public Cart getCartById(@PathVariable Integer id) throws CartNotFoundException {
       return cartService.getCartById(id);
    }
 
    @PutMapping("/updateCart/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String updateCart(@PathVariable("id") Integer id, @RequestBody Cart cart) {
       cartService.updateCart(id, cart);
       return "Data Update Successfully";
    }
 
    @DeleteMapping("/deleteCart/{id}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
    public String deleteCart(@PathVariable Integer id) {
       cartService.deleteCart(id);
       return "Data Delete Successfully";

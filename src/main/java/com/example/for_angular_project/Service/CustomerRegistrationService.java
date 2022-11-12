@@ -3,6 +3,7 @@ package com.example.for_angular_project.Service;
 import java.util.List;
 
 import com.example.for_angular_project.Entity.CustomerRegistration;
+import com.example.for_angular_project.error.CustomerRegistrationNotFoundException;
 
 public interface CustomerRegistrationService {
 
@@ -10,7 +11,7 @@ public interface CustomerRegistrationService {
 
    List<CustomerRegistration> getCustomerRegistration();
 
-   CustomerRegistration getCustomerRegistration(Integer id);
+   CustomerRegistration getCustomerRegistration(Integer id) throws CustomerRegistrationNotFoundException;
 
    void updateCustomerRegistration(Integer id, CustomerRegistration customerRegistration);
 

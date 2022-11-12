@@ -3,6 +3,7 @@ package com.example.for_angular_project.Service;
 import java.util.List;
 
 import com.example.for_angular_project.Entity.Category;
+import com.example.for_angular_project.error.CategoryNotFoundException;
 
 public interface CategoryService {
 
@@ -10,7 +11,7 @@ public interface CategoryService {
 
    public List<Category> getCategoryList();
 
-   public Category getCategoryById(Integer id);
+   public Category getCategoryById(Integer id) throws CategoryNotFoundException;
 
    public void updateCategory(Integer id, Category category);
 
